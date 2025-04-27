@@ -17,7 +17,7 @@ const HeaderPopapCategory = () => {
         showCategory ? "h-[570px]" : "h-0"
       } w-full duration-300 overflow-hidden absolute flex shadow-2xl bg-white top-[102px]`}
     >
-      <div className="w-[30%] flex flex-col py-[43px] px-[32px] bg-[#EBEFF3]">
+      <div className="w-[30%] flex flex-col z-5 py-[43px] px-[32px] bg-[#EBEFF3]">
         {categories?.map((item: HeaderCategoriesType) => (
           <Link
             className="
@@ -45,7 +45,7 @@ const HeaderPopapCategory = () => {
           </Link>
         ))}
       </div>
-      <div className="w-[70%] bg-[#ffffff]"></div>
+      <div className="w-[70%] z-5 bg-[#ffffff]"></div>
     </div>
   );
 };

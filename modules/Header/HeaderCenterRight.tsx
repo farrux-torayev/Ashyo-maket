@@ -1,10 +1,11 @@
 import { CompareIcon, LikeIcon, ProfileIcon, ShopIcon } from "@/assets/icons";
 import HeaderRight from "@/components/HeaderRight";
-import { HeaderRightType } from "@/types/HeaderCenter";
+import { HeaderActionType } from "@/types/HeaderCenterType";
+
 import React from "react";
 
 const HeaderCenterRight = () => {
-  const avctionList = [
+  const actionList = [
     {
       id: 1,
       icon: <CompareIcon />,
@@ -28,8 +29,12 @@ const HeaderCenterRight = () => {
   ];
   return (
     <div className="flex gap-[15px]">
-      {avctionList.map((item: HeaderRightType) => (
-        <HeaderRight key={item.id} actionCount={item.actionCount} icon={item.icon} />
+      {actionList.map((item: HeaderActionType) => (
+        <HeaderRight
+          key={item.id}
+          actionCount={item.actionCount}
+          icon={item.icon}
+        />
       ))}
     </div>
   );

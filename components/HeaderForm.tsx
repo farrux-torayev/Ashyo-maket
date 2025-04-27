@@ -45,7 +45,7 @@ const HeaderForm = () => {
   }, [searchWatchingValue]);
 
   return (
-    <div className="flex items-center gap-[10px]">
+    <div className="flex items-center gap-[10px] z-5">
       <Button
         onClick={() => setShowCategory(!showCategory)}
         title={t("category")}

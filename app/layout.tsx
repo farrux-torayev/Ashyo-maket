@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { QueryProvider } from "@/query/QueryProvider";
+import { QueryProvider } from "@/query/QueryClientProvider";
 
 export const metadata: Metadata = {
   title: "Ashyo",
