@@ -1,21 +1,47 @@
-import type { Metadata } from "next";
+// import type { Metadata } from "next";
+
+// import "./globals.css";
+// import { QueryProvider } from "@/query/QueryClientProvider";
+
+// export const metadata: Metadata = {
+//   title: "Ashyo",
+//   description: "Ashyo market for sale",
+// };
+
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   return (
+//     <html lang="en">
+//       <head>
+//         <link rel="icon" href="/Logo.svg" />
+//       </head>
+//       <body
+//         className={`antialiased`}
+//       >
+//         <QueryProvider>
+//            {children}
+//         </QueryProvider> 
+//       </body>
+//     </html>
+//   );
+// }
+
+
+
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+import { QueryProvider } from '@/query/QueryClientProvider';
 import "./globals.css";
-import { QueryProvider } from "@/query/QueryProvider";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import { LangContext } from "@/context/Context";
-import Header from "@/modules/Header";
-import Layout from "@/features";
+import { LangContext } from '@/context/Context';
+import Layout from '@/features';
 
-export const metadata: Metadata = {
-  title: "Ashyo",
-  description: "Ashyo market for sale",
-};
-
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
-  params,
+  params
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -28,13 +54,14 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <head>
-        <link rel="icon" href="/ashyoLogo.svg" />
+        <link rel="icon" href="/Logo.svg" />
+        <title>Ashyo</title>
       </head>
-      <body className={` antialiased`}>
+      <body>
         <NextIntlClientProvider>
           <QueryProvider>
             <LangContext>
-              <Layout>{children} </Layout>
+              <Layout>{children}</Layout>
             </LangContext>
           </QueryProvider>
         </NextIntlClientProvider>

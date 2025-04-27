@@ -1,5 +1,5 @@
 "use client";
-import { ContextType } from "@/types/ContexType";
+import { ContextType } from "@/types/ContextType";
 import { createContext, FC, ReactNode, useState } from "react";
 
 export const Context = createContext<ContextType>({
@@ -15,4 +15,3 @@ export const LangContext: FC<{ children: ReactNode }> = ({ children }) => {
     </Context.Provider>
   );
 };
-  

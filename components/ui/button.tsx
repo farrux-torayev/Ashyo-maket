@@ -1,35 +1,59 @@
-"use client";
-import React from "react";
-import { Skeleton } from "@/components/ui/skeleton"; // adjust path if needed
-import { getCategories } from "@/service/getCategories";
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
 
-const HeaderBottom = () => {
-    const { data, isLoading, isError } = getCategories();
+import { cn } from "@/lib/utils"
 
-    if (isError) return <div>Error loading data</div>;
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline:
+          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        ghost:
+          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        icon: "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
 
-    return (
-        <div className="containers">
-            <ul className="flex justify-between items-center gap-[20px] py-[20px] cursor-pointer">
-                {isLoading
-                    ? 
-                      Array.from({ length: 6 }).map((_, i) => (
-                          <Skeleton
-                              key={i}
-                              className="h-4 w-20 rounded bg-gray-300"
-                          />
-                      ))
-                    : data?.map((category: any) => (
-                          <li
-                              className="text-[#545D6A] hover:text-[#134E9B] transition duration-300 ease-in-out"
-                              key={category.id}
-                          >
-                              {category.name}
-                          </li>
-                      ))}
-            </ul>
-        </div>
-    );
-};
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }) {
+  const Comp = asChild ? Slot : "button"
 
-export default HeaderBottom;
+  return (
+    <Comp
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
+}
+
+export { Button, buttonVariants }

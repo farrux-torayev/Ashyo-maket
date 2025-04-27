@@ -1,8 +1,12 @@
 {
-    "HeaderTop": {
-        "city": "Ташкент",
-        "about": "О нас",
-        "products": "Продукты",
-        "contacts": "Контакты"
-    }
+  "HeaderTopContent": {
+    "tashkent": "Ташкент",
+    "about-us": "O нас",
+    "products": "Продукты",
+    "contacts": "Контакты"
+  },
+  "HeaderCenterContent": {
+    "category": "категория",
+    "placeholder": "Что Вы ищете?"
+  }
 }

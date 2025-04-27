@@ -1,16 +1,16 @@
-import React from "react";
-import HeaderTop from "./HeaderTop";
-import HeaderCenter from "./HeaderCenter";
-import HeaderBottom from "./HeaderBottom";
+import React from 'react'
+import HeaderTop from './HeaderTop'
+import HeaderCenter from './HeaderCenter'
+import HeaderButton from './HeaderButton'
 
 const Header = () => {
   return (
-    <div>
+    <header>
       <HeaderTop />
       <HeaderCenter />
-      <HeaderBottom />
-    </div>
-  );
-};
+      <HeaderButton />
+    </header>
+  )
+}
 
-export default Header;
+export default Header
