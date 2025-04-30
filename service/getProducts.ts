@@ -2,10 +2,10 @@
 import { instance } from "@/hooks/instance"
 import { useQuery } from "@tanstack/react-query"
 
-export const getCategories = () => {
+export const getProducts = () => {
     const {data = [], isLoading, isError} = useQuery(({
-        queryKey:['categories'],
-        queryFn: () => instance().get("/categories/all", {params:{limit:1000}}).then(res => res.data)
+        queryKey:['products'],
+        queryFn: () => instance().get("/products").then(res => res.data.items)
     }))
 
     return{data, isLoading, isError}

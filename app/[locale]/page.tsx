@@ -1,11 +1,18 @@
-import Header from "@/modules/Header";
+import React from "react";
+import Products from "@/components/Products/Products";
+import Brands from "@/modules/Brand";
 import Hero from "@/modules/Hero";
-import Image from "next/image";
+import BrandCategory from "@/modules/BrandCategory";
 
 export default function Home() {
   return (
-    <>     
-      <Hero/>
+    <>
+      <Hero />
+      <Brands />
+      <Products title="Most popular product" />
+      <Products title="Most popular product" />
+      <Products title="Sale product" />
+      <BrandCategory />
     </>
   );
 }

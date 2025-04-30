@@ -1,4 +1,3 @@
-
 "use client";
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import Button from "./Button";
@@ -30,7 +29,7 @@ const HeaderForm = () => {
   }
   function handleSearchClick(name: string) {
     setSearchValue(name);
-    setShowSearch(false)
+    setShowSearch(false);
   }
   const searchWatchingValue = debounce(searchValue, 1000);
   useEffect(() => {
@@ -96,7 +95,7 @@ const HeaderForm = () => {
         </ul>
       </div>
     </div>
-  ); 
+  );
 };
 
 export default HeaderForm;

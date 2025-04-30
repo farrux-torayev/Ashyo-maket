@@ -6,18 +6,16 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { getBanners } from "@/service/getBanners";
-import { log } from "console";
 import { BannersType } from "@/types/BannersType";
 import Button from "@/components/Button";
 import Image from "next/image";
 import { IMG_API } from "@/hooks/getEnv";
 const Hero = () => {
   const { data: banners } = getBanners();
-  console.log(banners);
 
   return (
     <div className="bg-[#F3F0F0]">
-      <div className="containers "> 
+      <div className="hero containers ">
         <Swiper
           pagination={true}
           modules={[Pagination]}
@@ -32,12 +30,19 @@ const Hero = () => {
                 <p className="text-[#545D6A] mb-[22px]">{item.description}</p>
                 <Button title="Batafsil" />
               </div>
-           <Image className="absolute bottom-0 right-0" src={`${IMG_API}/${item.image}`} alt="Render Img" width={500} height={700}  priority/>
+              <Image
+                className="absolute  right-0 object-contain w-[500px] h-[700px]"
+                src={`${IMG_API}/${item.image}`}
+                alt="Render Img"
+                width={500}
+                height={700}
+                priority
+              />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </div> 
+    </div>
   );
 };
 

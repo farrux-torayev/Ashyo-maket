@@ -1,22 +1,12 @@
-"use client";
-import { instance } from "@/hooks/instance";
-import { useQuery } from "@tanstack/react-query";
-
-type Category = {
-  id: number;
-  name: string;
-};
+"use client"
+import { instance } from "@/hooks/instance"
+import { useQuery } from "@tanstack/react-query"
 
 export const getCategories = () => {
-  const { data, isLoading, isError } = useQuery<Category[]>({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const response = await instance().get("/categories/all", {
-        params: { limit: 1000 },
-      });
-      return response.data;
-    },
-  });
+    const {data = [], isLoading, isError} = useQuery(({
+        queryKey:['categories'],
+        queryFn: () => instance().get("/categories/all", {params:{limit:1000}}).then(res => res.data)
+    }))
 
-  return { data, isLoading, isError };
-};
+    return{data, isLoading, isError}
+}
