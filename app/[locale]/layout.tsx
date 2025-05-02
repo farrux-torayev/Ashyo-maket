@@ -1,47 +1,15 @@
-// import type { Metadata } from "next";
-
-// import "./globals.css";
-// import { QueryProvider } from "@/query/QueryClientProvider";
-
-// export const metadata: Metadata = {
-//   title: "Ashyo",
-//   description: "Ashyo market for sale",
-// };
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   return (
-//     <html lang="en">
-//       <head>
-//         <link rel="icon" href="/Logo.svg" />
-//       </head>
-//       <body
-//         className={`antialiased`}
-//       >
-//         <QueryProvider>
-//            {children}
-//         </QueryProvider> 
-//       </body>
-//     </html>
-//   );
-// }
-
-
-
-import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
-import { QueryProvider } from '@/query/QueryClientProvider';
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { QueryProvider } from "@/query/QueryClientProvider";
 import "./globals.css";
-import { LangContext } from '@/context/Context';
-import Layout from '@/features';
+import { LangContext } from "@/context/Context";
+import Layout from "@/features";
+import { ToastContainer } from 'react-toastify';
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -62,6 +30,7 @@ export default async function LocaleLayout({
           <QueryProvider>
             <LangContext>
               <Layout>{children}</Layout>
+              <ToastContainer position="top-right" />
             </LangContext>
           </QueryProvider>
         </NextIntlClientProvider>

@@ -9,11 +9,11 @@ const BrandCategory = () => {
   const { data: categories } = getCategories();
 
   return (
-    <div className="containers brand-category-wrapper">
+    <div className="containers brand-category-wrapper ">
       {categories.map((item: HeaderCategoriesType) => (
-        <div key={item.id} className="border brand-category-item">
+        <div key={item.id} className="brand-category-item ">
           <Image
-            className="w-[343px] h-[254px]"
+            className="w-[343px] h-[248px]"
             src={`${IMG_API}/${item.image}`}
             alt={item.name}
             width={343}

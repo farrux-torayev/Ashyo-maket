@@ -1,9 +1,10 @@
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 export interface HeaderActionType {
   id?: number;
   icon: ReactNode;
   actionCount: number;
+  onClick?:MouseEventHandler<HTMLDivElement>
 }
 export interface HeaderSearchType {
   id: number;
@@ -13,4 +14,5 @@ export interface HeaderSearchType {
   parentCategoryId: null | number;
   createdAt: string;
   updatedAt: string;
+
 }

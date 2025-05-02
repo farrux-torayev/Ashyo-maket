@@ -1,8 +1,8 @@
-import React from "react";
+"use client";
+import React, { Dispatch, FC, FormEvent, SetStateAction } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -11,59 +11,96 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { Login, Register } from "@/service/Auth";
+import { toast } from 'react-toastify';
 
-const Auth = () => {
+export const Auth:FC<{setOpen:Dispatch<SetStateAction<boolean>>}> = ({setOpen}) => {
+  const login = Login()
+  const register = Register()
+  function handleLogin(e:FormEvent){
+    e.preventDefault()
+    const data = {
+      email:(e.target as HTMLFormElement).email.value,
+      password:(e.target as HTMLFormElement).password.value
+    }
+    try {
+      toast.success("Tizimga muvaffaqiyatli kirdingiz!");
+      setOpen(false)
+    } catch (error: any) {
+      console.error("Login xatolik:", error);
+      toast.error(error?.response?.data?.message || "Login qilishda xatolik yuz berdi");
+    }
+  }
+const handleRegister = async (e: FormEvent) => {
+  e.preventDefault();
+  const data = {
+    fullname: (e.target as HTMLFormElement).fullname.value,
+    email: (e.target as HTMLFormElement).email.value,
+    password: (e.target as HTMLFormElement).password.value
+  };
+  try {
+    await register.mutateAsync(data);
+    toast("Ro'yxatdan muvaffaqiyatli o'tdingiz!");
+    setOpen(false);
+  } catch (error: any) {
+    console.error("Xatolik:", error);
+    toast(error?.response?.data?.message || "Ro'yxatdan o'tishda xatolik yuz berdi");
+  }
+};
+
   return (
     <div>
-      <Tabs defaultValue="account" className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="password">Password</TabsTrigger>
+      <Tabs defaultValue="login" className="w-[400px] mx-auto border-none">
+        <TabsList className="grid w-full grid-cols-2 bg-white">
+          <TabsTrigger value="login">Login</TabsTrigger>
+          <TabsTrigger value="register">Register</TabsTrigger>
         </TabsList>
-        <TabsContent value="account">
-          <Card>
+        <TabsContent value="login">
+          <Card className="bg-white border-none">
             <CardHeader>
-              <CardTitle>Account</CardTitle>
-              <CardDescription>
-                Make changes to your account here. Click save when you're done.
-              </CardDescription>
+              <CardTitle>Login</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue="Pedro Duarte" />
+            <form onSubmit={handleLogin}> 
+            <CardContent className="space-y-2 mb-2">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input name="email" autoComplete="off" id="email" placeholder="Email " />
               </div>
-              <div className="space-y-1">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" defaultValue="@peduarte" />
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input name="password" autoComplete="off" type="password" id="password" placeholder="**********" />
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save changes</Button>
+              <Button className="border bg-black text-white duration-300 cursor-pointer hover:bg-[#282828]" type="submit">Login</Button>
             </CardFooter>
+            </form>
           </Card>
         </TabsContent>
-        <TabsContent value="password">
-          <Card>
+        <TabsContent value="register">
+          <Card className="bg-white border-none">
             <CardHeader>
-              <CardTitle>Password</CardTitle>
-              <CardDescription>
-                Change your password here. After saving, you'll be logged out.
-              </CardDescription>
+              <CardTitle>Register</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="space-y-1">
-                <Label htmlFor="current">Current password</Label>
-                <Input id="current" type="password" />
+            <form onSubmit={handleRegister}>
+            <CardContent className="space-y-2 mb-2">
+              <div className="space-y-2">
+                <Label htmlFor="fullname">Enter your fullname</Label>
+                <Input id="fullname" type="text" placeholder="Fullname"/>
               </div>
-              <div className="space-y-1">
-                <Label htmlFor="new">New password</Label>
-                <Input id="new" type="password" />
+              <div className="space-y-2">
+                <Label htmlFor="email">Enter your email </Label>
+                <Input id="email" type="text" placeholder="Email" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Enter your Password </Label>
+                <Input id="password" type="password"  placeholder="********"/>
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save password</Button>
+              <Button className="border bg-black text-white duration-300 cursor-pointer hover:bg-[#282828]" type="submit">Register</Button>
             </CardFooter>
+            </form>
           </Card>
         </TabsContent>
       </Tabs>

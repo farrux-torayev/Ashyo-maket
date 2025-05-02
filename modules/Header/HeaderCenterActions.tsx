@@ -1,9 +1,13 @@
+"use client"
 import { CompareIcon, LikeIcon, ProfileIcon, ShopIcon } from "@/assets/icons";
 import HeaderAction from "@/components/HeaderAction";
+import Modal from "@/components/Modal";
 import { HeaderActionType } from "@/types/HeaderCenterType";
-import React from "react";
+import React, { useState } from "react";
+import Auth from "./Auth";
 
 const HeaderCenterActions = () => {
+  const [open, setOpen] = useState<boolean>(false);
   const activeList = [
     {
       id: 1,
@@ -28,15 +32,16 @@ const HeaderCenterActions = () => {
   ];
 
   return (
-    <div className="flex gap-[15px] ">
-      {activeList.map((item: HeaderActionType) => (
-        <HeaderAction
-          key={item.id}
-          actionCount={item.actionCount}
-          icon={item.icon}
-        />
-      ))}
-    </div>
+    <>
+      <div className="flex gap-[15px] ">
+        {activeList.map((item: HeaderActionType) => {
+         return  item.id == 4 ?  <HeaderAction  onClick={()=> setOpen(true)} key={item.id}  actionCount={item.actionCount}  icon={item.icon} /> :<HeaderAction  key={item.id}  actionCount={item.actionCount}  icon={item.icon} />
+        })}
+      </div>
+      <Modal open={open} setOpen={setOpen}>
+        <Auth  setOpen={setOpen} />
+      </Modal>
+    </>
   );
 };
 
